@@ -1,10 +1,104 @@
 <template>
-    <div>
-        <h2>Home</h2>
-        <span>欢迎{{ username }}登录</span>
-        <el-button type="primary" size="default" @click="logout">退出</el-button>
+    <el-container class="home-container">
+        <el-header>
+            <h2>阳光小区物业系统</h2>
+            <el-dropdown>
+                <span class="el-dropdown-link">
+                    {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item><span @click="logout">退出</span></el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </el-header>
+        <el-container>
+            <!-- <el-aside width="200px">Aside</el-aside> -->
+            <!-- <el-main background-color="#404147" text-color="#fff" active-text-color="#ffd04b" unique-opened>Main</el-main> -->
+            <el-aside :width="isCollapse ? '64px' : '200px'">
 
-    </div>
+                <div class="toggle-button" @click="toggleCollapse">|||</div>
+
+                <!-- unique-opened==》》只打开一个菜单 -->
+                <el-menu background-color="#404147" text-color="#fff" active-text-color="#ffd04b" unique-opened
+                    :collapse="isCollapse" :collapse-transition="false" :router="true">
+
+                    <!-- 一级菜单 -->
+                    <el-submenu index="1">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>系统管理</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/welcome">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>欢迎页面</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="/user/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>用户管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="1-2">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>角色管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="1-3">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>菜单管理</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+
+                    <!-- 一级菜单 -->
+                    <el-submenu index="2">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>房屋管理</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="2-1">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>楼栋管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="2-2">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>单元管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="2-3">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>房屋管理</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+                </el-menu>
+
+            </el-aside>
+            <!-- 用来展示内容 -->
+            <el-main>
+                <router-view></router-view>
+            </el-main>
+        </el-container>
+    </el-container>
 </template>
 
 <script>
@@ -15,7 +109,8 @@ export default {
 
     data() {
         return {
-            username: ''
+            username: '',
+            isCollapse: false
         };
     },
     // 初始化方法(钩子函数)
@@ -39,9 +134,65 @@ export default {
             if (res.code == 200) {
                 this.username = res.data.username;
             }
+        },
+
+        toggleCollapse() {
+            this.isCollapse = !this.isCollapse;
         }
     },
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.home-container {
+    height: 100%;
+
+    .el-header {
+        background-color: #373C41;
+
+        h2 {
+            color: #FFFFFF;
+            font-size: 21px;
+            font-family: '楷体';
+            line-height: 60px;
+            float: left;
+        }
+
+        .el-dropdown {
+            float: right;
+            margin-right: 70px;
+            line-height: 60px;
+            color: #FFFFFF;
+        }
+    }
+
+    .el-aside {
+        background-color: #404147;
+
+        .el-menu {
+            border-right: none;
+        }
+
+
+        .toggle-button {
+            background-color: #4a5064;
+            font-size: 10px;
+            line-height: 24px;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+        }
+    }
+
+    .el-main {
+        background-color: #EAEDF2;
+    }
+
+
+}
+
+.el-submenu {
+    text-align: left;
+}
+</style>
