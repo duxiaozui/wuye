@@ -47,6 +47,7 @@
                 </el-table-column>
             </el-table>
         </el-card>
+
         <!-- 对话框 -->
         <el-dialog :title="editDialog.title" :visible.sync="editDialog.visible" :width="editDialog.width">
 
@@ -134,12 +135,13 @@ export default {
 
     data() {
         return {
+            //表格数据
             tableList: [],
             //编辑对话框
             editDialog: {
                 title: '',
                 width: '620px',
-                visible: true
+                visible: false
             },
             //编辑数据
             editModel: {
@@ -190,9 +192,29 @@ export default {
                 this.tableList = res.data;
             }
         },
+    
+        //添加菜单
         addMenu() {
-
+            //清空表单
+            this.$resetForm("editForm", this.editModel);
+            //设置编辑状态
+            this.editModel.editType = "0";
+            //设置对话框
+            this.editDialog.title = "新增菜单";
+            this.editDialog.visible = true
         },
+
+        //编辑菜单
+        editMenu(row) {
+            //复制表单
+            this.$objCopy(row, this.editModel);
+            //设置编辑状态
+            this.editModel.editType = "1";
+            //设置对话框
+            this.editDialog.title = "编辑菜单";
+            this.editDialog.visible = true;
+        },
+
         //获取上级菜单数据
         async selectParent() {
             //获取上级部门树型数据
@@ -202,6 +224,19 @@ export default {
                 this.parentDialog.visible = true;
             }
         },
+
+        //删除菜单
+        async deleteMenu(row) {
+            let confirm = await this.$myconfirm("你确认删除吗？");
+            if (confirm) {
+                let res = await deleteMenuApi(row.menuId);
+                if (res && res.code == 200) {
+                    this.getMenuList();
+                    this.$message.success(res.msg);
+                }
+            }
+        },
+
         //点击选中菜单获取数据
         treeClick(node) {
             this.selectNode.menuId = node.menuId;
@@ -217,30 +252,12 @@ export default {
             this.editModel.parentName = this.selectNode.moduleLabel;
             this.parentDialog.visible = false;
         },
-        //添加菜单
-        addMenu() {
-            //清空表单
-            this.$resetForm("editForm", this.editModel);
-            //设置编辑状态
-            this.editModel.editType = "0";
-            //设置对话框
-            this.editDialog.title = "新增菜单";
-            this.editDialog.visible = true
-        },
-        //编辑菜单
-        editMenu(row) {
-            //复制表单
-            this.$objCopy(row, this.editModel);
-            //设置编辑状态
-            this.editModel.editType = "1";
-            //设置对话框
-            this.editDialog.title = "编辑菜单";
-            this.editDialog.visible = true;
-        },
+
         //关闭编辑对话框
         onClose() {
             this.editDialog.visible = false;
         },
+
         //确认编辑对话框
         onConfirm() {
             this.$refs.editForm.validate(async (valid) => {
@@ -260,17 +277,7 @@ export default {
                 }
             })
         },
-        //删除菜单
-        async deleteMenu(row) {
-            let confirm = await this.$myconfirm("你确认删除吗？");
-            if (confirm) {
-                let res = await deleteMenuApi(row.menuId);
-                if (res && res.code == 200) {
-                    this.getMenuList();
-                    this.$message.success(res.msg);
-                }
-            }
-        }
+
     },
 };
 </script>

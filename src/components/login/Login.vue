@@ -23,7 +23,9 @@
 
         </el-form-item>
 
-        <el-button type="primary" style="width:100%;" @click="login">登录</el-button>
+        <el-button type="primary"
+          style="width:100%;background-color: #CBBDDD;color: #000;border: none;border-radius: 20px;"
+          @click="login">登录</el-button>
 
       </el-form>
 
@@ -96,16 +98,21 @@ export default {
 .bg-color {
   width: 100%;
   height: 100%;
-  background-color: #25AFF3;
+  // background-color: #000000;
+  background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
   overflow: hidden;
 
   .login-container {
     width: 450px;
-    height: 300px;
+    height: 330x;
     background-color: #FFFFFF;
     margin: 100px auto;
     border-radius: 5px;
     padding: 30px;
+    // border-top-left-radius: 15px;
+    //左上角具有了px的弧度。
+    //上下左右四个角的弧度值都是15px；
+    border-radius: 20px;
 
     h2 {
       text-align: center;
@@ -113,7 +120,8 @@ export default {
       font-family: '微软雅黑';
       height: 70px;
       line-height: 70px;
-      color: #25AFF3;
+      color: #000000;
+
     }
   }
 }

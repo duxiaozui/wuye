@@ -19,8 +19,8 @@
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
 
                 <!-- unique-opened==》》只打开一个菜单 -->
-                <el-menu background-color="#404147" text-color="#fff" active-text-color="#ffd04b" unique-opened
-                    :collapse="isCollapse" :collapse-transition="false" :router="true">
+                <el-menu class="el-menu-vertical-demo" background-color="#202020" active-text-color="#ffd04b"
+                    text-color="#fff" unique-opened :collapse="isCollapse" :collapse-transition="false" :router="true">
 
                     <!-- 一级菜单 -->
                     <el-submenu index="1">
@@ -148,7 +148,8 @@ export default {
     height: 100%;
 
     .el-header {
-        background-color: #373C41;
+        // background-color: #373C41;
+        background-image: linear-gradient(to right, #434343 0%, black 100%);
 
         h2 {
             color: #FFFFFF;
@@ -167,15 +168,25 @@ export default {
     }
 
     .el-aside {
-        background-color: #404147;
+        // background-color: #404147;
+        background-image: linear-gradient(to right, #434343 0%, black 100%);
 
         .el-menu {
             border-right: none;
+            // background-image: linear-gradient(to right, #434343 0%, black 100%);
+
         }
+
+        // .el-menu-item {
+        //     border-right: none;
+        //     color: #000;
+        //     // background-color: linear-gradient(to right, #434343 0%, black 100%);
+        // }
 
 
         .toggle-button {
-            background-color: #4a5064;
+            background-color: #262626;
+            // background-image: linear-gradient(to right, #434343 0%, black 100%);
             font-size: 10px;
             line-height: 24px;
             color: #fff;
@@ -186,7 +197,7 @@ export default {
     }
 
     .el-main {
-        background-color: #EAEDF2;
+        background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     }
 
 
@@ -194,5 +205,7 @@ export default {
 
 .el-submenu {
     text-align: left;
+    // color: #000;
+    // background-color: linear-gradient(to right, #434343 0%, black 100%);
 }
 </style>
