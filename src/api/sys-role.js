@@ -21,3 +21,13 @@ export async function editRoleApi(param) {
 export async function deleteRoleApi(param) {
     return await $http.delete(`/role/${param}`);
 }
+
+//获得分配权限菜单
+export async function getAssignTreeApi(param) {
+    return await $http.get(`/role/getAssignTree/${param}`);
+}
+
+//保存角色拥有的权限信息
+export async function saveMenuIdsByRoleIdApi(param) {
+    return await $http.put(`/role/saveMenuIdsByRoleId`, param);
+}

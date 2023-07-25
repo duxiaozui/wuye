@@ -34,10 +34,13 @@
                 <el-table-column prop="updateTime" label="更新时间"></el-table-column>
                 <el-table-column label="操作" width="300px" align="center">
                     <template slot-scope="scope">
+                        <el-button type="primary" icon="el-icon-delete" size="small"
+                            @click="assignMenu(scope.row)">分配菜单</el-button>
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="editRole(scope.row)">编辑</el-button>
                         <el-button type="primary" icon="el-icon-delete" size="small"
                             @click="deleteRole(scope.row)">删除</el-button>
+
                     </template>
                 </el-table-column>
             </el-table>
@@ -68,11 +71,25 @@
             </span>
         </el-dialog>
 
+        <!-- 分配权限对话框 -->
+        <el-dialog :title="assignDialog.title" :visible.sync="assignDialog.visible" :width="assignDialog.width">
+
+            <!-- 树形菜单 -->
+            <el-tree ref="assignTree" :data="tree" :default-checked-keys="checkMenuIds" node-key="menuId"
+                :props="defaultProps" empty-text="暂无数据" :show-checkbox="true" :check-strictly="true"
+                icon-class="el-icon-plus" default-expand-all>
+            </el-tree>
+
+            <span slot="footer">
+                <el-button @click="assignClose">取 消</el-button>
+                <el-button type="primary" @click="assignConfirm">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { getRoleListApi, addRoleApi, editRoleApi, deleteRoleApi } from '@/api/sys-role'
+import { getRoleListApi, addRoleApi, editRoleApi, deleteRoleApi, getAssignTreeApi, saveMenuIdsByRoleIdApi } from '@/api/sys-role'
 export default {
     name: 'SysRoleList',
 
@@ -113,7 +130,25 @@ export default {
                     message: "请输入备注信息",
                 }],
             },
-        };
+
+            //树形菜单弹框
+            assignDialog: {
+                width: '520px',
+                title: '',
+                visible: false
+            },
+            //树形菜单数据
+            tree: [],
+            //准备默认选中的节点
+            checkMenuIds: [],
+            //默认节点参数名设置
+            defaultProps: {
+                children: 'children',
+                label: 'moduleLabel'
+            },
+            //角色id
+            roleId: '',
+        }
     },
 
     mounted() {
@@ -233,6 +268,42 @@ export default {
                     this.getRoleList();
                     this.$message.success(res.msg);
                 }
+            }
+        },
+        //分配菜单
+        async assignMenu(row) {
+            //设置对话框
+            this.assignDialog.title = `为【${row.roleName}】分配权限`;
+            this.assignDialog.visible = true;
+
+            //清空数据
+            this.roleId = '';
+            this.tree = [];
+            this.checkMenuIds = [];
+
+            //获取数据
+            this.roleId = row.roleId;
+            let res = await getAssignTreeApi(this.roleId);
+            if (res && res.code == 200) {
+                this.tree = res.data.tree;
+                this.checkMenuIds = res.data.checkMenuIds;
+            }
+        },
+        //关闭菜单对话框
+        assignClose() {
+            this.assignDialog.visible = false;
+        },
+        //菜单对话框确认
+        async assignConfirm() {
+            let ids = this.$refs.assignTree.getCheckedKeys();
+            let param = {
+                roleId: this.roleId,
+                menuIds: ids
+            }
+            let res = await saveMenuIdsByRoleIdApi(param);
+            if (res && res.code == 200) {
+                this.$message.success(res.msg);
+                this.assignDialog.visible = false;
             }
         }
     },
