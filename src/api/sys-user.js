@@ -20,3 +20,12 @@ export async function editUserApi(param) {
 export async function deleteUserApi(param) {
     return await $http.delete(`/user/${param}`);
 }
+
+//查询所有角色并选中用户拥有的角色
+export async function checkRolesApi(param) {
+    return await $http.get(`/user/checkRoles/${param}`);
+}
+//保存用户拥有的角色Id
+export async function saveRoleIdsByUserIdApi(param) {
+    return await $http.put('/user/saveRoleIdsByUserId', param);
+}

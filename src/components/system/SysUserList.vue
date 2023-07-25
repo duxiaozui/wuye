@@ -64,6 +64,8 @@
                 </el-table-column>
                 <el-table-column label="操作" width="300px" align="center">
                     <template slot-scope="scope">
+                        <el-button type="primary" icon="el-icon-delete" :disabled="scope.row.isAdmin == 1" size="small"
+                            @click="assignRole(scope.row)">分配角色</el-button>
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="editUser(scope.row)">编辑</el-button>
                         <el-button type="primary" icon="el-icon-delete" size="small"
@@ -127,11 +129,27 @@
 
         </el-dialog>
 
+        <!-- 分配角色对话框 -->
+        <el-dialog :title="assignDialog.title" :visible.sync="assignDialog.visible" :width="assignDialog.width">
+
+            <el-table :data="roleTableList" ref="roleTable" @selection-change="getAssignRoleIds" border stripe>
+                <el-table-column type="selection" width="50"></el-table-column>
+                <el-table-column type="index" label="序号" width="50"></el-table-column>
+                <el-table-column prop="roleName" label="角色名"></el-table-column>
+                <el-table-column prop="remark" label="备注"></el-table-column>
+            </el-table>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="assignClose">取 消</el-button>
+                <el-button type="primary" @click="assignConfirm">确 定</el-button>
+            </div>
+        </el-dialog>
+
+
     </div>
 </template>
 
 <script>
-import { getUserListApi, addUserApi, editUserApi, deleteUserApi } from '@/api/sys-user'
+import { getUserListApi, addUserApi, editUserApi, deleteUserApi, checkRolesApi, saveRoleIdsByUserIdApi } from '@/api/sys-user'
 export default {
     name: 'SysUserList',
 
@@ -208,6 +226,18 @@ export default {
                     message: "请选择是否离职",
                 }],
             },
+            //分配角色对话框
+            assignDialog: {
+                title: "",
+                visible: false,
+                width: "800px"
+            },
+            //分配角色数据
+            roleTableList: [],
+            //分配的用户id
+            assignUserId: "",
+            //分配的角色id
+            assignRoleIds: []
         };
     },
 
@@ -326,6 +356,45 @@ export default {
                 this.getUserList();
                 this.$message.success(res.msg);
             }
+        },
+        //分配角色
+        async assignRole(row) {
+            this.assignDialog.visible = true;
+            //设置标题
+            this.assignDialog.title = `为【${row.username}】分配角色`;
+            let res = await checkRolesApi(row.userId);
+            //设置角色列表数据
+            if (res && res.code == 200) {
+                this.roleTableList = res.data;
+                this.$nextTick(() => {
+                    for (let i = 0; i < this.roleTableList.length; i++) {
+                        let role = this.roleTableList[i];
+                        if (role.checked) {
+                            this.$refs.roleTable.toggleRowSelection(this.roleTableList[i], true);
+
+                        }
+                    }
+                })
+            }
+            this.assignUserId = row.userId;
+        },
+        getAssignRoleIds(value) {
+            let roleIds = [];
+            for (let i = 0; i < value.length; i++) {
+                roleIds.push(value[i].roleId);
+            }
+            this.assignRoleIds = roleIds;
+        },
+        assignClose() {
+            this.assignDialog.visible = false;
+        },
+        async assignConfirm() {
+            let param = {
+                userId: this.assignUserId,
+                roleIds: this.assignRoleIds
+            }
+            let res = await saveRoleIdsByUserIdApi(param);
+            this.assignDialog.visible = false;
         }
     },
 };
