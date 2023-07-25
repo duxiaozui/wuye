@@ -16,13 +16,11 @@ const routes = [
     component: () => import('@/components/home/Home'),
     redirect: '/Welcome',
     children: [{
-      path: '/welcome',
-      component: () => import('@/components/welcome/Welcome')
+      path: '/welcome', component: () => import('@/components/welcome/Welcome')
     },
-    {
-      path: '/user/list',
-      component: () => import('@/components/system/SysUserList')
-    }
+    { path: '/user/list', component: () => import('@/components/system/SysUserList') },
+    { path: '/role/list', component: () => import('@/components/system/SysRoleList') },
+    { path: '/menu/list', component: () => import('@/components/system/SysMenuList') }
     ]
   }
 

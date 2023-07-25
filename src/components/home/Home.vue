@@ -44,14 +44,14 @@
                                 <span>用户管理</span>
                             </template>
                         </el-menu-item>
-                        <el-menu-item index="1-2">
+                        <el-menu-item index="/role/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>角色管理</span>
                             </template>
                         </el-menu-item>
-                        <el-menu-item index="1-3">
+                        <el-menu-item index="/menu/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>
