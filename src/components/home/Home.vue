@@ -27,7 +27,24 @@
                         <!-- 一级菜单模板区 -->
                         <template slot="title">
                             <i class="el-icon-setting"></i>
-                            <span>系统管理</span>
+                            <span>首页</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/welcome">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>欢迎页面</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+                    
+                    <!-- 一级菜单 -->
+                    <el-submenu index="2">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>用户管理</span>
                         </template>
                         <!-- 二级菜单 -->
                         <el-menu-item index="/welcome">
@@ -61,7 +78,7 @@
                     </el-submenu>
 
                     <!-- 一级菜单 -->
-                    <el-submenu index="2">
+                    <el-submenu index="3">
                         <!-- 一级菜单模板区 -->
                         <template slot="title">
                             <i class="el-icon-setting"></i>
@@ -73,6 +90,37 @@
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>楼栋管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="/unit/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>单元管理</span>
+                            </template>
+                        </el-menu-item>
+                        <el-menu-item index="/house/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>房屋管理</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
+
+                    <!-- 一级菜单 -->
+                    <el-submenu index="4">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>业主管理</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/liveUser/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>业主管理</span>
                             </template>
                         </el-menu-item>
                         <el-menu-item index="/unit/list">
