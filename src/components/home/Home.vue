@@ -4,7 +4,7 @@
             <h2>阳光小区物业系统</h2>
             <el-dropdown>
                 <span class="el-dropdown-link">
-                    {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{ trueName }}- - -{{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item><span @click="logout">退出</span></el-dropdown-item>
@@ -141,7 +141,7 @@
                             </template>
                         </el-menu-item>
                         <!-- 二级菜单 -->
-                        <el-menu-item index="/liveUser/list">
+                        <el-menu-item index="/feeWater/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>
@@ -168,6 +168,7 @@ export default {
 
     data() {
         return {
+            trueName: '',
             username: '',
             isCollapse: false
         };
@@ -182,7 +183,7 @@ export default {
         async logout() {
             let res = await logoutApi();
             if (res.code == 200) {
-                this.$message(res.msg);
+                this.$message.success(res.msg);
                 window.sessionStorage.clear();
                 this.$router.push("/");
             }
@@ -192,6 +193,8 @@ export default {
             let res = await getInfoApi();
             if (res.code == 200) {
                 this.username = res.data.username;
+                this.trueName = res.data.trueName;
+                // this.$message(res.data.trueName);
             }
         },
 
