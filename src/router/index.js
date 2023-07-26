@@ -24,7 +24,8 @@ const routes = [
     { path: '/build/list', component: () => import('@/components/house/HouseBuildList') },
     { path: '/unit/list', component: () => import('@/components/house/HouseUnitList') },
     { path: '/house/list', component: () => import('@/components/house/HouseList') },
-    { path: '/liveUser/list', component: () => import('@/components/live/LiveUserList') }
+    { path: '/liveUser/list', component: () => import('@/components/live/LiveUserList') },
+    { path: '/feePower/list', component: () => import('@/components/fee/FeePowerList') }
     ]
   }
 
