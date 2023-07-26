@@ -50,6 +50,10 @@
                             @click="editLiveUser(scope.row)">编辑</el-button>
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="assignHouse(scope.row)">分配房屋</el-button>
+                        <el-button type="primary" icon="el-icon-delete" size="small"
+                            @click="returnHouse(scope.row)">退房</el-button>
+                        <el-button type="primary" icon="el-icon-delete" size="small"
+                            @click="deleteLiveUser(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -157,7 +161,7 @@
 </template>
 
 <script>
-import { getLiveUserListApi, addLiveUserApi, editLiveUserApi, getRoleListApi, getUserByIdApi, getHouseListApi, assignHouseApi } from '@/api/live-user'
+import { getLiveUserListApi, addLiveUserApi, editLiveUserApi, getRoleListApi, getUserByIdApi, getHouseListApi, assignHouseApi, returnHouseApi, deleteUserApi } from '@/api/live-user'
 export default {
     name: 'LiveUserList',
 
@@ -378,6 +382,36 @@ export default {
                 this.getLiveUserList();
                 this.$message.success(res.msg);
                 this.assignHouseDialog.visible = false;
+            }
+        },
+        //退房
+        async returnHouse(row) {
+            console.log(row.useStatus);
+            if (!row.useStatus) {
+                this.$message.warning("该租户暂无可退的房屋")
+                return;
+            }
+            let confirm = await this.$myconfirm("你确认退房吗")
+            if (confirm) {
+                let res = await returnHouseApi({
+                    userId: row.userId,
+                    houseId: row.houseId
+                });
+                if (res && res.code == 200) {
+                    this.getLiveUserList();
+                    this.$message.success(res.msg);
+                }
+            }
+        },
+        //删除业主
+        async deleteLiveUser(row) {
+            let confirm = await this.$myconfirm("确认删除该数据吗");
+            if (confirm) {
+                let res = await deleteUserApi(row.userId, row.houseId);
+                if (res && res.code == 200) {
+                    this.getLiveUserList();
+                    this.$message.success(res.msg);
+                }
             }
         }
 

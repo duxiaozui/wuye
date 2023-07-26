@@ -10,7 +10,6 @@ axios.interceptors.request.use(
         let token = sessionStorage.getItem("authorization")
         //如果token存在，把token添加到请求的头部
         if (token) {
-
             config.headers['token'] = token
             // config.headers['authorization'] = token
         }

@@ -38,3 +38,16 @@ export async function getHouseListApi(param) {
 export async function assignHouseApi(param) {
     return $http.post('/liveUser/assignHouse', param);
 }
+
+//退房
+export async function returnHouseApi(param) {
+    return $http.post('/liveUser/returnHouse', param);
+}
+//删除
+export async function deleteUserApi(userId, houseId) {
+    if (houseId && houseId != '') {
+        return $http.delete(`/liveUser/${userId}/${houseId}`);
+    } else {
+        return $http.delete(`/liveUser/${userId}`);
+    }
+}
