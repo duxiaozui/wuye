@@ -68,21 +68,21 @@
                             <span>房屋管理</span>
                         </template>
                         <!-- 二级菜单 -->
-                        <el-menu-item index="2-1">
+                        <el-menu-item index="/build/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>楼栋管理</span>
                             </template>
                         </el-menu-item>
-                        <el-menu-item index="2-2">
+                        <el-menu-item index="/unit/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>单元管理</span>
                             </template>
                         </el-menu-item>
-                        <el-menu-item index="2-3">
+                        <el-menu-item index="/house/list">
                             <!-- 二级菜单模板区 -->
                             <template slot="title">
                                 <i class="el-icon-location"></i>

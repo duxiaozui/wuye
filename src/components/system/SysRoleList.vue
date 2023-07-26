@@ -40,7 +40,6 @@
                             @click="editRole(scope.row)">编辑</el-button>
                         <el-button type="primary" icon="el-icon-delete" size="small"
                             @click="deleteRole(scope.row)">删除</el-button>
-
                     </template>
                 </el-table-column>
             </el-table>

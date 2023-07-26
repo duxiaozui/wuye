@@ -20,7 +20,10 @@ const routes = [
     },
     { path: '/user/list', component: () => import('@/components/system/SysUserList') },
     { path: '/role/list', component: () => import('@/components/system/SysRoleList') },
-    { path: '/menu/list', component: () => import('@/components/system/SysMenuList') }
+    { path: '/menu/list', component: () => import('@/components/system/SysMenuList') },
+    { path: '/build/list', component: () => import('@/components/house/HouseBuildList') },
+    { path: '/unit/list', component: () => import('@/components/house/HouseUnitList') },
+    { path: '/house/list', component: () => import('@/components/house/HouseList') }
     ]
   }
 
