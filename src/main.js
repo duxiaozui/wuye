@@ -22,6 +22,8 @@ Vue.prototype.$objCopy = objCopy;
 import myconfirm from '@/utils/myconfirm'
 Vue.prototype.$myconfirm = myconfirm;
 
+
+
 Vue.config.productionTip = false
 
 new Vue({

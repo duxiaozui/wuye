@@ -149,6 +149,38 @@
                             </template>
                         </el-menu-item>
                     </el-submenu>
+                    <!-- 一级菜单 -->
+                    <el-submenu index="6">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>投诉管理</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/complaint/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>投诉列表</span>
+                            </template>
+                        </el-menu-item>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/complaint/mylist">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>我的列表</span>
+                            </template>
+                        </el-menu-item>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/system/1">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>111111</span>
+                            </template>
+                        </el-menu-item>
+                    </el-submenu>
                 </el-menu>
 
             </el-aside>

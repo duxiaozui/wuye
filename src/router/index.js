@@ -26,7 +26,10 @@ const routes = [
     { path: '/house/list', component: () => import('@/components/house/HouseList') },
     { path: '/liveUser/list', component: () => import('@/components/live/LiveUserList') },
     { path: '/feePower/list', component: () => import('@/components/fee/FeePowerList') },
-    { path: '/feeWater/list', component: () => import('@/components/fee/FeeWaterList') }
+    { path: '/feeWater/list', component: () => import('@/components/fee/FeeWaterList') },
+    { path: '/complaint/list', component: () => import('@/components/complaint/ComplaintList') },
+    { path: '/complaint/mylist', component: () => import('@/components/complaint/MyComplaintList') },
+    { path: '/system/1', component: () => import('@/components/system/1') },
     ]
   }
 

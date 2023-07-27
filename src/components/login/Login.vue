@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-color">
+  <div ref="vantaRef" style="width:100%;height:100vh" class="bg-color">
+    <div></div>
     <div class="login-container">
       <h2>阳光小区物业系统</h2>
       <el-form :model="loginModel" ref="loginForm" :rules="rules" label-width="80px" label-position="left" :inline="false"
@@ -34,6 +35,8 @@
 </template>
 
 <script>
+import * as THREE from 'three'
+import Net from 'vanta/src/vanta.net'
 // 导入登录请求
 import { captchaApi, loginApi } from '@/api/login';
 export default {
@@ -69,6 +72,29 @@ export default {
   mounted() {
     // 验证码处理如下
     this.loadCaptcha();
+    this.vantaEffect = Net({
+      el: this.$refs.vantaRef,
+      THREE: THREE
+    })
+    VANTA.NET({
+      el: this.$refs.vantaRef,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x3c283c,
+      backgroundColor: 0x419c7b,
+      points: 11.00,
+      spacing: 17.00
+    })
+  },
+  beforeDestroy() {
+    if (this.vantaEffect) {
+      this.vantaEffect.destroy()
+    }
   },
 
   methods: {
@@ -106,7 +132,7 @@ export default {
     width: 450px;
     height: 330x;
     background-color: #FFFFFF;
-    margin: 100px auto;
+    margin: 130px auto;
     border-radius: 5px;
     padding: 30px;
     // border-top-left-radius: 15px;
