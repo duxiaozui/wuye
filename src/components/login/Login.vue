@@ -109,7 +109,7 @@ export default {
         if (valid) {
           const res = await loginApi(this.loginModel);
           if (res.code == 200) {
-            this.$message.success(res.msg)
+            this.$message.success(res.msg) 
             window.sessionStorage.setItem("authorization", res.data.token);
             this.$router.push("/home");
           }

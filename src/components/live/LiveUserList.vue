@@ -44,7 +44,7 @@
                 <el-table-column prop="unitName" label="单元"></el-table-column>
                 <el-table-column prop="houseNum" label="房屋编号"></el-table-column>
                 <el-table-column prop="houseArea" label="使用面积"></el-table-column>
-                <el-table-column label="操作" width="200px" align="center">
+                <el-table-column label="操作" width="400px" align="center">
                     <template slot-scope="scope">
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="editLiveUser(scope.row)">编辑</el-button>

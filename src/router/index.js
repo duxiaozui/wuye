@@ -30,6 +30,8 @@ const routes = [
     { path: '/complaint/list', component: () => import('@/components/complaint/ComplaintList') },
     { path: '/complaint/mylist', component: () => import('@/components/complaint/MyComplaintList') },
     { path: '/system/1', component: () => import('@/components/system/1') },
+    { path: '/repair/list', component: () => import('@/components/repair/RepairList') },
+      { path: '/repair/mylist', component: () => import('@/components/repair/MyRepairList') },
     ]
   }
 

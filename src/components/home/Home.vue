@@ -181,6 +181,30 @@
                             </template>
                         </el-menu-item>
                     </el-submenu>
+                    <!-- 一级菜单 -->
+                    <el-submenu index="7">
+                        <!-- 一级菜单模板区 -->
+                        <template slot="title">
+                            <i class="el-icon-setting"></i>
+                            <span>维修管理</span>
+                        </template>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/repair/list">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>维修列表</span>
+                            </template>
+                        </el-menu-item>
+                        <!-- 二级菜单 -->
+                        <el-menu-item index="/repair/mylist">
+                            <!-- 二级菜单模板区 -->
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>我的列表</span>
+                            </template>
+                        </el-menu-item>                   
+                    </el-submenu>
                 </el-menu>
 
             </el-aside>
