@@ -139,7 +139,8 @@ export default {
         },
         playRepair(row) {
             this.videoDialog.visible = true;
-            this.url = "http://127.0.0.1:8888/api/video/" + row.videoId + "?token=" + sessionStorage.getItem("authorization");
+            this.url = "http://127.0.0.1:8888/api/video/" + row.videoId + "?token=" + sessionStorage.getItem("token");
+            // this.url = "http://127.0.0.1:8888/api/video/" + row.videoId + "?token=" + sessionStorage.getItem("authorization");
         }
 
     },

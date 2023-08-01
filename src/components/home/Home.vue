@@ -4,7 +4,7 @@
             <h2>阳光小区物业系统</h2>
             <el-dropdown>
                 <span class="el-dropdown-link">
-                    {{ trueName }}- - -{{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    昵称：{{ trueName }}----登录账户：{{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item><span @click="logout">退出</span></el-dropdown-item>
@@ -16,195 +16,30 @@
             <!-- <el-main background-color="#404147" text-color="#fff" active-text-color="#ffd04b" unique-opened>Main</el-main> -->
             <el-aside :width="isCollapse ? '64px' : '200px'">
 
-                <div class="toggle-button" @click="toggleCollapse">|||</div>
+                <!-- <div class="toggle-button" @click="toggleCollapse">|||</div> -->
+                <div class="toggle-button" @click="toggleCollapse">-</div>
 
                 <!-- unique-opened==》》只打开一个菜单 -->
                 <el-menu class="el-menu-vertical-demo" background-color="#202020" active-text-color="#ffd04b"
                     text-color="#fff" unique-opened :collapse="isCollapse" :collapse-transition="false" :router="true">
 
-                    <!-- 一级菜单 -->
-                    <el-submenu index="1">
-                        <!-- 一级菜单模板区 -->
+                    <el-submenu v-if="menuCodes.includes(firstMenu.menuCode)" :index="firstMenu.menuId + ''"
+                        v-for="(firstMenu, index) in menuList">
                         <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>首页</span>
+                            <i :class="firstMenu.icon"></i>
+                            <span>{{ firstMenu.moduleLabel }}</span>
                         </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/welcome">
-                            <!-- 二级菜单模板区 -->
+                        <el-menu-item v-if="menuCodes.includes(secondMenu.menuCode)" :index="secondMenu.url"
+                            v-for="(secondMenu, index) in firstMenu.children">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>欢迎页面</span>
+                                <i :class="secondMenu.icon"></i>
+                                <span>{{ secondMenu.moduleLabel }}</span>
                             </template>
                         </el-menu-item>
                     </el-submenu>
 
-                    <!-- 一级菜单 -->
-                    <el-submenu index="2">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>用户管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/welcome">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>欢迎页面</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/user/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>用户管理</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/role/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>角色管理</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/menu/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>菜单管理</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
 
-                    <!-- 一级菜单 -->
-                    <el-submenu index="3">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>房屋管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/build/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>楼栋管理</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/unit/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>单元管理</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/house/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>房屋管理</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
 
-                    <!-- 一级菜单 -->
-                    <el-submenu index="4">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>业主管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/liveUser/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>业主管理</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
-
-                    <!-- 一级菜单 -->
-                    <el-submenu index="5">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>收费管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/feePower/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>电费管理</span>
-                            </template>
-                        </el-menu-item>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/feeWater/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>水费管理</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
-                    <!-- 一级菜单 -->
-                    <el-submenu index="6">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>投诉管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/complaint/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>投诉列表</span>
-                            </template>
-                        </el-menu-item>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/complaint/mylist">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>我的列表</span>
-                            </template>
-                        </el-menu-item>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/system/1">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>111111</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
-                    <!-- 一级菜单 -->
-                    <el-submenu index="7">
-                        <!-- 一级菜单模板区 -->
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>维修管理</span>
-                        </template>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/repair/list">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>维修列表</span>
-                            </template>
-                        </el-menu-item>
-                        <!-- 二级菜单 -->
-                        <el-menu-item index="/repair/mylist">
-                            <!-- 二级菜单模板区 -->
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>我的列表</span>
-                            </template>
-                        </el-menu-item>                   
-                    </el-submenu>
                 </el-menu>
 
             </el-aside>
@@ -219,6 +54,7 @@
 <script>
 // 导入api
 import { logoutApi, getInfoApi } from '@/api/login'
+import { getMenuListApi } from '@/api/sys-menu'
 export default {
     name: 'Home',
 
@@ -226,12 +62,17 @@ export default {
         return {
             trueName: '',
             username: '',
-            isCollapse: false
+            isCollapse: false,
+            //菜单数据
+            menuList: [],
+            //权限码
+            menuCodes: []
         };
     },
     // 初始化方法(钩子函数)
     mounted() {
         this.getInfo();
+        this.loadMenuList();
     },
 
     methods: {
@@ -250,12 +91,20 @@ export default {
             if (res.code == 200) {
                 this.username = res.data.username;
                 this.trueName = res.data.trueName;
+                this.menuCodes = res.data.menus;
                 // this.$message(res.data.trueName);
             }
         },
 
         toggleCollapse() {
             this.isCollapse = !this.isCollapse;
+        },
+        async loadMenuList() {
+            let res = await getMenuListApi();
+            if (res && res.code == 200) {
+                this.menuList = res.data;
+            }
+
         }
     },
 };

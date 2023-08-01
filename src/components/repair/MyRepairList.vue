@@ -225,14 +225,15 @@ export default {
         },
         //上传之前触发事件
         beforeUpload(file) {
-            this.headers.token = sessionStorage.getItem("authorization");
-            console.log("1111111111" + this.headers.token);
+            // this.headers.token = sessionStorage.getItem("authorization");
+            this.headers.token = sessionStorage.getItem("token");
+            //console.log("1111111111" + this.headers.token);
             // this.headers.authorization = sessionStorage.getItem("authorization");
             return true;
         },
         //上传成功触发事件
         onSuccess(response) {
-            console.log("2222222" + response.data.videoId);
+            //console.log("2222222" + response.data.videoId);
             this.editModel.videoId = response.data.videoId;
         },
         //删除上传选项触发事件
