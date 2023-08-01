@@ -27,3 +27,8 @@ export async function getMyListApi(param) {
         params: param
     });
 }
+
+//删除视频
+export async function deleteVideoApi(param) {
+    return await $http.delete(`/video/${param}`);
+}

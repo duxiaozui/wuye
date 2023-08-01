@@ -41,10 +41,10 @@
                 </el-table-column>
                 <el-table-column label="操作" width="300px" align="center">
                     <template slot-scope="scope">
-                        <el-button type="primary" icon="el-icon-close" size="small"
-                            @click="deleteRepair(scope.row)">删除</el-button>
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="editRepair(scope.row)">编辑</el-button>
+                        <el-button type="primary" icon="el-icon-close" size="small"
+                            @click="deleteRepair(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -71,9 +71,17 @@
                 <el-form-item label="地址" size="small">
                     <el-input v-model="editModel.address"></el-input>
                 </el-form-item>
-                <el-form-item label="视频id" size="small">
-                    <el-input v-model="editModel.videoId"></el-input>
-                </el-form-item>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <el-form-item label="上传视频" size="small">
+                            <el-upload :before-upload="beforeUpload" :headers="headers" :on-remove="onRemove"
+                                :on-success="onSuccess" :action="url" name="video" :file-list="fileList" list-type="text">
+                                <el-button size="small" type="primary">点击上传</el-button>
+                                <div slot="tip" class="el-upload__tip">上传视频，描述报修问题</div>
+                            </el-upload>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
             </el-form>
 
             <span slot="footer">
@@ -81,13 +89,11 @@
                 <el-button type="primary" @click="onConfirm">确 定</el-button>
             </span>
         </el-dialog>
-
-
     </div>
 </template>
 
 <script>
-import { getMyListApi, addRepairApi, editRepairApi, deleteRepairApi } from '@/api/repair'
+import { getMyListApi, addRepairApi, editRepairApi, deleteRepairApi, deleteVideoApi } from '@/api/repair'
 export default {
     name: 'MyRepairList',
 
@@ -117,7 +123,15 @@ export default {
                 phone: "",
                 address: "",
                 videoId: ""
-            }
+            },
+            //上传回显数据
+            fileList: [],
+            //携带头部信息
+            headers: {
+                // "authorization": ""
+                "token": ""
+            },
+            url: 'http://127.0.0.1:8888/api/video/upload'
         };
     },
 
@@ -154,7 +168,7 @@ export default {
             this.params.pageSize = val;
             this.getList();
         },
-        //添加投诉
+        //添加维修
         addRepair() {
             //清空表单
             this.$resetForm("editForm", this.editModel);
@@ -162,9 +176,10 @@ export default {
             this.editModel.editType = "0";
             //设置标题
             this.editDialog.title = "添加维修";
+            // this.fileList = []      
             this.editDialog.visible = true;
         },
-        //编辑投诉
+        //编辑维修
         editRepair(row) {
             //复制表单
             this.$objCopy(row, this.editModel);
@@ -172,6 +187,7 @@ export default {
             this.editModel.editType = "1";
             this.editDialog.title = "编辑维修";
             this.editDialog.visible = true;
+
         },
         //取消
         onClose() {
@@ -205,6 +221,25 @@ export default {
                     this.getList();
                     this.$message.success(res.msg);
                 }
+            }
+        },
+        //上传之前触发事件
+        beforeUpload(file) {
+            this.headers.token = sessionStorage.getItem("authorization");
+            console.log("1111111111" + this.headers.token);
+            // this.headers.authorization = sessionStorage.getItem("authorization");
+            return true;
+        },
+        //上传成功触发事件
+        onSuccess(response) {
+            console.log("2222222" + response.data.videoId);
+            this.editModel.videoId = response.data.videoId;
+        },
+        //删除上传选项触发事件
+        async onRemove(file) {
+            let res = await deleteVideoApi(file.response.data.videoId);
+            if (res && res.code == 200) {
+                this.$message.success(res.msg);
             }
         }
     },

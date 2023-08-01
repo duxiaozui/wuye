@@ -42,6 +42,8 @@
                     <template slot-scope="scope">
                         <el-button type="primary" icon="el-icon-edit" size="small"
                             @click="doRepair(scope.row)">处理</el-button>
+                        <el-button type="primary" icon="el-icon-caret-right" size="small"
+                            @click="playRepair(scope.row)">故障播放</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -56,6 +58,10 @@
 
         </el-card>
 
+        <!-- 对话框 -->
+        <el-dialog :title="videoDialog.title" :visible.sync="videoDialog.visible" :width="videoDialog.width">
+            <video :src="url" style="width:100%;height:100%" controls autoplay> </video>
+        </el-dialog>
 
 
     </div>
@@ -77,6 +83,13 @@ export default {
             },
             //维修列表
             tableList: [],
+            //视频对话框
+            videoDialog: {
+                title: '故障播放',
+                visible: false,
+                width: '800px'
+            },
+            url: ''
         };
     },
 
@@ -123,7 +136,12 @@ export default {
                 }
             }
 
+        },
+        playRepair(row) {
+            this.videoDialog.visible = true;
+            this.url = "http://127.0.0.1:8888/api/video/" + row.videoId + "?token=" + sessionStorage.getItem("authorization");
         }
+
     },
 };
 </script>

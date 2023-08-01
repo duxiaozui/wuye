@@ -2,7 +2,7 @@
     <div>
         <!-- 面包屑 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item to="/home">首页</el-breadcrumb-item>
+            <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
             <el-breadcrumb-item>角色管理</el-breadcrumb-item>
             <el-breadcrumb-item>角色列表</el-breadcrumb-item>
         </el-breadcrumb>
@@ -185,33 +185,6 @@ export default {
             this.params.currentPage = val;
             this.getRoleList();
         },
-        //对话框
-        editDialog: {
-            title: '',
-            width: '720px',
-            visible: false
-        },
-        //编辑数据
-        editModel: {
-            roleId: '',
-            roleName: '',
-            remark: '',
-            type: ''//0新增 1修改
-        },
-        //校验
-        rules: {
-            roleName: [{
-                required: true,
-                trigger: "blur",
-                message: "请输入角色名称",
-            }],
-            remark: [{
-                required: true,
-                trigger: "blur",
-                message: "请输入备注信息",
-            }],
-        },
-
         //添加角色
         addRole() {
             //清空表单
@@ -312,4 +285,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="scss" scoped></style>

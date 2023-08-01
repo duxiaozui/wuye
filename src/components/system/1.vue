@@ -1,7 +1,7 @@
 <template>
     <div>
         <div ref="vantaRef" style="width:100%;height:100vh"></div>
-        <div class="my_title">Hello,World</div>
+        <div class="my_title">Hello,嘟小嘴</div>
     </div>
 </template>
 
