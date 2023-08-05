@@ -1,16 +1,17 @@
 // 在每次访问系统的时候都要将token时间刷新，不能客户端一直在访问服务器30分钟后，token过期。
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-//路径前缀
+// 路径前缀
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/'
 
-//请求发送之前的拦截器
+// 请求发送之前的拦截器
 axios.interceptors.request.use(
-    config => {
-        let token = sessionStorage.getItem("authorization")
-        //如果token存在，把token添加到请求的头部
-        if (token) {
-            config.headers['token'] = token
+  config => {
+    // const token = sessionStorage.getItem('authorization')
+        const token = sessionStorage.getItem('token')
+    // 如果token存在，把token添加到请求的头部
+    if (token) {
+            config.headers.token = token
             // config.headers['authorization'] = token
         }
         return config

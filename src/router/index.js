@@ -48,7 +48,8 @@ router.beforeEach((to, from, next) => {
   //如果用户访问登录页，直接放行
   if (to.path == '/') return next();
   //从 sessionStorage 中获取到保存的token值
-  const token = window.sessionStorage.getItem('authorization')
+  // const token = window.sessionStorage.getItem('authorization')
+  const token = window.sessionStorage.getItem('token')
   //没有token ,强制跳转登录页
   if (!token) return next("/")
   next();

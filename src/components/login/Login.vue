@@ -38,7 +38,7 @@
 import * as THREE from 'three'
 import Net from 'vanta/src/vanta.net'
 // 导入登录请求
-import { captchaApi, loginApi } from '@/api/login';
+import { captchaApi, loginApi, getInfoApi } from '@/api/login';
 export default {
   name: 'Login',
 
@@ -109,8 +109,11 @@ export default {
         if (valid) {
           const res = await loginApi(this.loginModel);
           if (res.code == 200) {
-            this.$message.success(res.msg) 
             window.sessionStorage.setItem("token", res.data.token);
+            let res2 = await getInfoApi();
+            this.$message.success(res2.data.trueName + "---登录成功")
+            // this.$message.success(res.msg) 
+            // window.sessionStorage.setItem("token", res.data.token);
             // window.sessionStorage.setItem("authorization", res.data.token);
             this.$router.push("/home");
           }

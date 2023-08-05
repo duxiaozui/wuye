@@ -80,7 +80,8 @@ export default {
         async logout() {
             let res = await logoutApi();
             if (res.code == 200) {
-                this.$message.success(res.msg);
+                this.$message.success(this.trueName+"---退出成功");
+                // this.$message.success(res.msg);
                 window.sessionStorage.clear();
                 this.$router.push("/");
             }
